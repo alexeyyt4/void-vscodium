@@ -11,8 +11,8 @@ built from source.
 ## Build and install
 
 ```sh
-git clone https://github.com/alexeyyt4/xbps-src-codium
-cp -r xbps-src-codium/srcpkgs/codium /path/to/void-packages/srcpkgs/
+git clone https://github.com/alexeyyt4/void-vscodium
+cp -r void-vscodium/srcpkgs/codium /path/to/void-packages/srcpkgs/
 cd /path/to/void-packages
 ./xbps-src pkg codium
 sudo xbps-install -R hostdir/binpkgs codium
