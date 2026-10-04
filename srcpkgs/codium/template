@@ -1,7 +1,7 @@
 # Template file for 'void-vscodium'
 pkgname=codium
 version=1.135.06055
-revision=1
+revision=2
 only_for_archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="tar"
@@ -13,12 +13,13 @@ homepage="https://vscodium.com"
 distfiles="https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-linux-x64-${version}.tar.gz"
 checksum=c09d8ac8dd7f52b09ee159ee24b440541dfd8f937a0f6f88cc428c78e48ee1f2
 nostrip=yes # bundled Electron binaries, stripping can break them
-# Official VSCodium tarball bundles cross-platform ELF binaries (not runnable on x86_64 host).
+
+# The official VSCodium tarball bundles helper ELF files for several
+# architectures. Skip those files while retaining dependency scanning for
+# the main x86_64 Electron/Codium binaries.
 skiprdeps="
- /usr/lib/codium/resources/app/node_modules.asar.unpacked/@vscode/ripgrep-universal/bin/linux-s390x/rg
- /usr/lib/codium/resources/app/node_modules.asar.unpacked/@vscode/ripgrep-universal/bin/linux-ppc64/rg
- /usr/lib/codium/resources/app/node_modules.asar.unpacked/@microsoft/mxc-sdk/bin/arm64/linux-test-proxy
- /usr/lib/codium/resources/app/node_modules.asar.unpacked/@microsoft/mxc-sdk/bin/arm64/lxc-exec
+	/usr/lib/codium/resources/app/node_modules.asar.unpacked/@vscode/ripgrep-universal/bin/*/*
+	/usr/lib/codium/resources/app/node_modules.asar.unpacked/@microsoft/mxc-sdk/bin/*/*
 "
 
 do_install() {
