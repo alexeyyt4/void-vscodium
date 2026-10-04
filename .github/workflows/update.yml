@@ -1,0 +1,25 @@
+name: update-codium
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # every Monday
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./update.sh
+      - id: v
+        run: echo "version=$(sed -n 's/^version=//p' srcpkgs/codium/template)" >> "$GITHUB_OUTPUT"
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: bump-codium
+          commit-message: "codium: update to ${{ steps.v.outputs.version }}."
+          title: "codium: update to ${{ steps.v.outputs.version }}."
+          body: "Automated version bump. Build and run it locally before merging."

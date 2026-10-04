@@ -1,0 +1,45 @@
+# Template file for 'void-vscodium'
+pkgname=codium
+version=1.116.02821
+revision=1
+only_for_archs="x86_64"
+create_wrksrc=yes
+hostmakedepends="tar"
+depends="gtk+3 nss alsa-lib libXtst libsecret libxkbfile libxkbcommon at-spi2-core xdg-utils"
+short_desc="VSCodium - Visual Studio Code without Microsoft branding/telemetry (binary)"
+maintainer="qwerty qwerty <qwerty@qwerty.qwerty>"
+license="MIT"
+homepage="https://vscodium.com"
+distfiles="https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-linux-x64-${version}.tar.gz"
+checksum=82c7173d6aa7415f6777d5d66cbe58902772c719c30c46385a9140831e46edad
+nostrip=yes # bundled Electron binaries, stripping can break them
+
+do_install() {
+	vmkdir usr/lib/codium
+	vcopy "*" usr/lib/codium
+
+	vmkdir usr/bin
+	ln -sf /usr/lib/codium/bin/codium ${DESTDIR}/usr/bin/codium
+
+	vmkdir usr/share/pixmaps
+	ln -sf /usr/lib/codium/resources/app/resources/linux/code.png \
+		${DESTDIR}/usr/share/pixmaps/codium.png
+
+	vmkdir usr/share/applications
+	cat > ${DESTDIR}/usr/share/applications/codium.desktop <<EOF
+[Desktop Entry]
+Name=VSCodium
+Comment=Code Editing. Redefined.
+Exec=/usr/bin/codium --unity-launch %F
+Icon=codium
+Type=Application
+StartupNotify=false
+StartupWMClass=VSCodium
+Categories=Utility;TextEditor;Development;IDE;
+MimeType=text/plain;inode/directory;
+EOF
+
+	if [ -f resources/app/LICENSE.txt ]; then
+		vlicense resources/app/LICENSE.txt
+	fi
+}
