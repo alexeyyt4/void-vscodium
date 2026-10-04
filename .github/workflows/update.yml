@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: ./update.sh
+      - run: sh update.sh
       - id: v
         run: echo "version=$(sed -n 's/^version=//p' srcpkgs/codium/template)" >> "$GITHUB_OUTPUT"
       - uses: peter-evans/create-pull-request@v7
