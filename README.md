@@ -15,7 +15,7 @@ git clone https://github.com/alexeyyt4/void-vscodium
 cp -r void-vscodium/srcpkgs/codium /path/to/void-packages/srcpkgs/
 cd /path/to/void-packages
 ./xbps-src/ codium
-sudo xbps-install -R hostdir/binpkgs/vscode-bin codium
+sudo xbps-install -R hostdir/binpkgs codium
 ```
 
 ## Updating
