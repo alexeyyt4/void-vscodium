@@ -1,7 +1,7 @@
 # Template file for 'void-vscodium'
 pkgname=codium
-version=1.135.06055
-revision=3
+version=1.143.17183
+revision=1
 only_for_archs="x86_64"
 create_wrksrc=yes
 hostmakedepends="tar"
@@ -11,7 +11,7 @@ maintainer="qwerty qwerty <qwerty@qwerty.qwerty>"
 license="MIT"
 homepage="https://vscodium.com"
 distfiles="https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-linux-x64-${version}.tar.gz"
-checksum=c09d8ac8dd7f52b09ee159ee24b440541dfd8f937a0f6f88cc428c78e48ee1f2
+checksum=b113c7cc55624f0779fe194169bb6c049785bfaac2033c84b8a4da68445d72af
 nostrip=yes # bundled Electron binaries, stripping can break them
 
 # The official VSCodium tarball bundles ripgrep for several architectures.
